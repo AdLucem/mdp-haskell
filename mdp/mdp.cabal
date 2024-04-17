@@ -49,7 +49,10 @@ executable mdp-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      ad
+    , backprop
+    , base >=4.7 && <5
+    , linear
     , mdp
     , vector
   default-language: Haskell2010
@@ -65,7 +68,10 @@ test-suite mdp-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      ad
+    , backprop
+    , base >=4.7 && <5
+    , linear
     , mdp
     , vector
   default-language: Haskell2010

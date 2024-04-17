@@ -47,7 +47,10 @@ executables:
     dependencies:
     - mdp
     - vector
-
+    - backprop
+    - ad
+    - linear
+    
 tests:
   mdp-test:
     main:                Spec.hs
@@ -59,3 +62,6 @@ tests:
     dependencies:
     - mdp
     - vector
+    - backprop
+    - ad
+    - linear

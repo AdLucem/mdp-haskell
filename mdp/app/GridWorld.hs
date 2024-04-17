@@ -19,7 +19,11 @@ place2d mat obj x y =
   in
     place mat row' x
 
-    
+
+get2d :: [[a]] -> Int -> Int -> a
+get2d mat y x = (mat !! y) !! x
+
+
 type Grid = [[String]]
 
 {- " " for empty space, "#" for wall, string(int) for end state -}
