@@ -41,6 +41,7 @@ executable mdp-exe
   main-is: Main.hs
   other-modules:
       GridWorld
+      MDP
       Paths_mdp
   autogen-modules:
       Paths_mdp
@@ -50,6 +51,7 @@ executable mdp-exe
   build-depends:
       base >=4.7 && <5
     , mdp
+    , vector
   default-language: Haskell2010
 
 test-suite mdp-test
@@ -65,4 +67,5 @@ test-suite mdp-test
   build-depends:
       base >=4.7 && <5
     , mdp
+    , vector
   default-language: Haskell2010

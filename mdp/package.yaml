@@ -46,6 +46,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - mdp
+    - vector
 
 tests:
   mdp-test:
@@ -57,3 +58,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - mdp
+    - vector
