@@ -42,6 +42,7 @@ executable mdp-exe
   other-modules:
       GridWorld
       MDP
+      MountainCar
       Paths_mdp
   autogen-modules:
       Paths_mdp

@@ -9,28 +9,28 @@ import qualified Data.Vector as V
 
 import GridWorld
 
-
-class Parameter a where
-  initparam :: [Int] -> a
-
-
+  
 class ActionSpace action where
   enumerate :: [action]
 
 class MDP state action | state -> action where
- 
   transition :: state -> action -> state
   reward :: state -> action -> Int
   -- parametrized policy
-  policy :: (Parameter n) => n -> state -> action
+  policy :: [[Int]] -> state -> action
 
   
-policyTrans :: (Parameter theta, MDP s a) => theta -> s -> s
+policyTrans :: (MDP s a) => [[Int]] -> s -> s
 policyTrans theta state = transition state (policy theta state)
 
-
+-- run the MDP n times accourding to policy 
+runMDP :: (MDP s a) => Int -> [[Int]] -> s -> s
+runMDP n theta state =
+  (iterate (\st -> policyTrans theta st) state) !! n
+  
 {- ########### TYPECLASS INSTANCES ######### -}
 
+{-
 instance Parameter Int where
   initparam _ = 1 
   
@@ -40,13 +40,11 @@ instance Parameter Float where
 
 instance (Parameter n) => Parameter (V.Vector n) where
   initparam (x:xs) = V.replicate x (initparam xs)
-  
+ -}
 -- instance Parameter (V.Vector (V.Vector n)) where
   -- 2d vectors only
 --  initparam (y:x:ys) = V.replicate y (V.replicate x 0.1) 
 
-gwparams :: V.Vector (V.Vector Float)
-gwparams = initparam [1,5] 
 
 instance ActionSpace Action where
   enumerate = [North, South, West, East]
@@ -63,18 +61,21 @@ gwEnumStates (State grid _) =
   in
     map (\ (y, x) -> State grid (Player y x)) validCoords
     
-  
+
 instance MDP State Action where
   transition = transition_fn
   reward st ac = reward_fn st
 
   policy theta (State grid player) =
     let
-      policygrid = [[East, East, East, East],
-                    [North, North, North, North],
-                    [North, West, West, West]]
+      moveID = (theta !! player.row) !! player.col
     in
-      (policygrid !! player.row) !! player.col
+      case moveID of
+        1  -> North
+        -1 -> South
+        2  -> East
+        -2 -> West
+        _  -> error "Parameter not shaped properly!"
    
 
 
